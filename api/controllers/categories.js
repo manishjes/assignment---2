@@ -5,7 +5,7 @@ const mongoose = require("mongoose")
 
 exports.create_category = (req,res, next)=>{
     const newCategory = new Category({
-        _id:  mongoose.Types.ObjectId(),
+        _id: new mongoose.Types.ObjectId(),
         categoryname: req.body.categoryname
         
 
@@ -74,7 +74,7 @@ exports.update_category = (req, res, next)=>{
 exports.delete_category = (req, res, next)=>{
     
     const id = req.params.categoryId;
-    Category.remove({_id: id}).exec().then(result=>{
+    Category.findByIdAndRemove({_id: id}).exec().then(result=>{
         res.status(200).json(result)
     })
     .catch(err=>{

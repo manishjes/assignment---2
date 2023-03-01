@@ -5,7 +5,7 @@ const mongoose = require("mongoose")
 // create post
 exports.create_posts = (req,res, next)=>{
     const newPost = new Post({
-        _id:  mongoose.Types.ObjectId(),
+        _id:  new mongoose.Types.ObjectId(),
         categoryId: req.body.categoryId,
         title: req.body.title,
         content: req.body.content,
@@ -77,7 +77,7 @@ exports.update_post = (req, res, next)=>{
 exports.delete_post = (req, res, next)=>{
     
     const id = req.params.postId;
-    Post.remove({_id: id}).exec().then(result=>{
+    Post.findByIdAndRemove({_id: id}).exec().then(result=>{
         res.status(200).json(result)
     })
     .catch(err=>{
